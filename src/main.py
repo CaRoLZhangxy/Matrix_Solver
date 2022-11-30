@@ -11,22 +11,10 @@ from utils import *
 
 
 parser = argparse.ArgumentParser(description='test')
-parser.add_argument('--m', type=str, choices=['LU','QR','H','GS','URV'],default='LU')
+parser.add_argument('--m', type=str, choices=['LU','GS','H','G','URV'],default='LU')
 parser.add_argument('--input', type=str, default='../data/LU.txt')
 parser.add_argument('--solve',type=int, default=0)
 parser.add_argument('--vector',type=str, default='../data/V_LU.txt')
-
-#Read arguments from config file
-
-config = configparser.ConfigParser()
-config.read('../config/config.ini')
-arg_list = []
-
-#default: LU test
-for k,v in config['URV_test'].items():
-    arg_list.append("--" + k)
-    arg_list.append(v)
-#args = parser.parse_args(arg_list)
 
 args = parser.parse_args()
 
@@ -86,7 +74,7 @@ if (args.m == 'GS'):
         print("The reslut of Ax = b is: ")
         print(x)
 
-if (args.m == 'H'):
+elif (args.m == 'H'):
     print("Your choice is : Householder QR factorization")
     m,n = mat.shape
     Q,R,det = Householder(mat)
@@ -106,7 +94,7 @@ if (args.m == 'H'):
         print("The reslut of Ax = b is: ")
         print(x)
 
-if (args.m == 'G'):
+elif (args.m == 'G'):
     print("Your choice is : Givens QR factorization")
     m,n = mat.shape
     Q,R,det = Givens(mat)
@@ -126,7 +114,7 @@ if (args.m == 'G'):
         print("The reslut of Ax = b is: ")
         print(x)
 
-if (args.m == 'URV'):
+elif (args.m == 'URV'):
     print("Your choice is : URV factorization")
     m,n = mat.shape
     U,R,V,det = URV(mat)

@@ -3,7 +3,7 @@ import os,sys
 
 #solve det(Q) in QR factorization
 def detQ(Q):
-    n = Q.size()
+    n,m = Q.shape
     I = np.eye(n)
     r = np.linalg.matrix_rank(-I-Q)#to judge det(Q)
     n = np.linalg.matrix_rank(Q)
@@ -15,7 +15,7 @@ def detQ(Q):
 
 #solve det(R) in QR factorization
 def detR(R):
-    n = R.size()
+    n,m = R.shape
     det_R = 1
     for i in range(n):
         det_R = det_R * R[i,i]
@@ -143,8 +143,8 @@ def Givens(mat):
         for j in range(i+1,m):
             P = np.eye(m)
             x = np.hypot(R[j,i],R[i,i])
-            print(R[i,i],R[j,i])
-            print(x)
+            #print(R[i,i],R[j,i])
+            #print(x)
             cos = R[i,i]/x
             sin = R[j,i]/x
             P[j,i] = -sin
@@ -169,7 +169,7 @@ def URV(mat):
     r = np.linalg.matrix_rank(mat)
     Q,B_1,_ = Householder(mat)
     B = B_1[:r,:]
-    print(B.T)
+    #print(B.T)
     q,B_2,_ = Householder(B.T)
     T = B_2[:r,:r]
     V = q
